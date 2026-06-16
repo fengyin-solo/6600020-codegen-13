@@ -26,3 +26,23 @@ export interface Alarm {
   timestamp: number
   acknowledged: boolean
 }
+
+export type InspectionRecordType = 'offline' | 'overlimit' | 'acknowledged'
+
+export interface InspectionRecord {
+  id: string
+  deviceId: string
+  deviceName: string
+  type: InspectionRecordType
+  message: string
+  timestamp: number
+  level?: 'info' | 'warning' | 'critical'
+}
+
+export interface DayInspection {
+  date: string
+  offlineCount: number
+  overlimitCount: number
+  acknowledgedCount: number
+  records: InspectionRecord[]
+}
