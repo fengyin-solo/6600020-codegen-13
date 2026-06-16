@@ -121,7 +121,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { useModbusStore } from '../store/modbus'
 import type { DayInspection, InspectionRecord, InspectionRecordType } from '../types'
 
@@ -178,10 +178,11 @@ function nextMonth() {
   }
 }
 
-function goToday() {
+async function goToday() {
   const d = new Date()
   currentYear.value = d.getFullYear()
   currentMonth.value = d.getMonth()
+  await nextTick()
   const today = calendarData.value.find(day => day.date === todayStr.value)
   if (today) selectedDay.value = today
 }
